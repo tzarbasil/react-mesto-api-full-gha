@@ -1,0 +1,15 @@
+.popup__auth_input {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    outline: none;
+    width: 100%;
+    color: white;
+    background-color: black;
+    margin-bottom: 30px;
+    border-bottom: 1px solid white;
+}

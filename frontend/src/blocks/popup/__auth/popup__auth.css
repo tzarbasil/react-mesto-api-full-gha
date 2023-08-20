@@ -1,0 +1,8 @@
+.popup__auth {
+    width: 358px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 170px;
+}

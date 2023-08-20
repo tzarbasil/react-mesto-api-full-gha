@@ -1,0 +1,4 @@
+.popup__auth_offer {
+    display: flex;
+    flex-direction: row;
+}

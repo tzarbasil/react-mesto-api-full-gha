@@ -1,0 +1,11 @@
+.card__container {
+  max-width: 282px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .card__container {
+    margin: 0 auto;
+  }
+}

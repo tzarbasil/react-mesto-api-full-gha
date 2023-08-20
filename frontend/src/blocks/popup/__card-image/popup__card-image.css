@@ -1,0 +1,6 @@
+.popup__card-image {
+    max-width: 75vw;
+    max-height: 75vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
