@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 
 import Header from './Header.js'
 import Main from './Main.js'
 import Footer from './Footer.js'
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup"
@@ -19,7 +18,7 @@ import { api } from '../utils/Api.js'
 import InfoTooltip from "./InfoTooltip";
 import Login from "./Login";
 import Register from "./Register";
-import { authorization, register, isTockenValid } from "../utils/Authorization";
+import { authorization, register, isTokenValid } from "../utils/Authorization";
 
 
 
@@ -33,10 +32,10 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
-    name: " ",
-    subtitle: " ",
-    avatar: " ",
-    _id: " ",
+    name: "",
+    subtitle: "",
+    avatar: "",
+    _id: "",
   });
 
   const [cards, setCards] = useState([]);
@@ -48,14 +47,11 @@ function App() {
     email: "",
   });
 
-  const popupOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isInfoTooltipOpen;
-
-
   const updateUserData = (user) => {
     api
       .setProfileInformation(user)
       .then((data) => {
-        setCurrentUser(data);
+        setCurrentUser({...data, ...user});
         closeAllPopups();
       })
       .then(() => closeAllPopups())
@@ -66,7 +62,7 @@ function App() {
     api
       .patchAvatarInfo(avatar)
       .then((data) => {
-        setCurrentUser(data);
+        setCurrentUser({...data, ...avatar});
       })
       .then(() => closeAllPopups())
       .catch((error) => console.log(error));
@@ -74,10 +70,21 @@ function App() {
 
 
   useEffect(() => {
-    tokenCheck();
+    const jwt = localStorage.getItem("jwt");
+    tokenCheck().then((response) => {
+      setHeaderEmail(response.data.email);
+      setLoggedIn(true);
+      api.setAuthToken(jwt);
+      console.log('Token check passed');
+      fetchMainData()
+    }).catch((err) => { console.error(err); console.log('Token check failed'); });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchMainData = () => {
     api.getProfileInformation()
       .then((profileInformation) => {
-        setCurrentUser(profileInformation)
+        setCurrentUser(profileInformation.data)
       })
       .catch((error) => console.log(error));
 
@@ -86,8 +93,9 @@ function App() {
         setCards(cards);
       })
       .catch((error) => console.log(error));
-  }, []);
-
+    console.log('Navigating...')
+    navigate("/");
+  }
 
   const logOut = () => {
     localStorage.removeItem("jwt");
@@ -98,11 +106,7 @@ function App() {
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem("jwt");
-    isTockenValid(jwt).then((response) => {
-      setHeaderEmail(response.email);
-      setLoggedIn(true);
-    }).then(() => navigate("/"))
-      .catch((err) => console.error(err));
+    return isTokenValid(jwt)
   }
 
   const registerUser = () => {
@@ -130,6 +134,8 @@ function App() {
           localStorage.setItem("jwt", response.token);
           setHeaderEmail(email);
           setLoggedIn(true);
+          api.setAuthToken(response.token)
+          fetchMainData();
           navigate("/");
         }
       })
@@ -151,7 +157,7 @@ function App() {
   // АПИ КАРТОЧКИ
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((item) => item._id === currentUser._id);
+    const isLiked = card.likes.some((likerId) => likerId === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {

@@ -1,11 +1,14 @@
-// export const BASE_URL = "http://localhost:3000"
-export const BASE_URL = "https://backend.tzarbasil.nomoredomainsicu.ru"
+export const BASE_URL = "https://backend.tzarbasil.nomoredomainsicu.ru";
 
 export default class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
+    this._headers = {
+      "Content-Type": "application/json",
+    };
+    this.authToken = ''
   }
+
 
   __checkResponse = (res) => {
     if (res.ok) {
@@ -13,7 +16,15 @@ export default class Api {
     } else {
       return Promise.reject("Error");
     }
+  }
 
+  __setHeaders = (headers) => {
+    this._headers = headers;
+  }
+
+  setAuthToken = (token) => {
+    console.log('Token is set to API')
+    this.__setHeaders({ ...this._headers, "Authorization": `Bearer ${token}`, })
   }
 
   getProfileInformation() {
@@ -92,12 +103,6 @@ export default class Api {
 
 }
 
-const token = localStorage.getItem("jwt");
-
 export const api = new Api({
-  baseUrl: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-    'Authorization': `Bearer ${token}`
-  }
+  baseUrl: BASE_URL
 });
