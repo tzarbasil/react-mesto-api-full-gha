@@ -6,6 +6,7 @@ module.exports.cors = (req, res, next) => {
     'http://praktikum.tk',
     'https://tzarbasil.nomoredomainsicu.ru',
     'http://tzarbasil.nomoredomainsicu.ru',
+    'tzarbasil.nomoredomainsicu.ru',
     'http://localhost',
   ];
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
