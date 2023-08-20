@@ -18,10 +18,10 @@ const AuthorizationForm = (props) => {
         onChange={props.handleChangeInput}></input>
       <button className="popup__auth_submit" type="submit">{props.buttonText}</button>
 
-      <div className="popup__auth_offer">
+      {props.showLinkOnLogin && <div className="popup__auth_offer">
         <h2 className="popup__auth_subtitle">Уже зарегистрированы?</h2>
         <Link className="popup__auth_enter" to="/sign-in"> Войти </Link>
-      </div>
+      </div>}
     </form>
   );
 };

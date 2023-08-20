@@ -6,8 +6,8 @@ const Register = (props) => {
     <>
       <Header link={"/sign-in"} linkText={"Войти"} />
       <AuthorizationForm header="Регистрация" buttonText="Зарегистрироваться" hidden={false} handleSubmit={props.onRegister}
-        inputTypePassword={props.inputTypePassword} inputTypeEmail={props.inputTypeEmail} handleChangeInput={props.handleChangeInput} />
-    </>
+        inputTypePassword={props.inputTypePassword} inputTypeEmail={props.inputTypeEmail} handleChangeInput={props.handleChangeInput} showLinkOnLogin={true} />
+    </> 
   );
 };
 export default Register;
