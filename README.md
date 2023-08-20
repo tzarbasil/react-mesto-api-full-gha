@@ -9,7 +9,7 @@ https://github.com/tzarbasil/react-mesto-api-full-gha/tree/main
 
 ## Ссылки на проект
 
-IP-адрес https://github.com/tzarbasil/react-mesto-api-full-gha/tree/main
+IP-адрес 158.160.79.104
 
 Frontend https://tzarbasil.nomoredomainsicu.ru
 
