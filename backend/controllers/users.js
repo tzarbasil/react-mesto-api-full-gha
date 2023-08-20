@@ -11,10 +11,9 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
-
     .then((user) => {
       res.send({
-        token: jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' }),
+        token: jwt.sign({ _id: user._id }, (process.env && process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret'), { expiresIn: '7d' }),
       });
     })
     .catch(() => next(new AuthorizationError('Неверный логин или пароль')));

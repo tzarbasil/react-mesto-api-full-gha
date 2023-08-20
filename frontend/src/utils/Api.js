@@ -1,4 +1,5 @@
-export const BASE_URL = "https://backend.tzarbasil.nomoredomainsicu.ru";
+// export const BASE_URL = "https://backend.tzarbasil.nomoredomainsicu.ru";
+export const BASE_URL = "http://localhost:3000";
 
 export default class Api {
   constructor({ baseUrl }) {
