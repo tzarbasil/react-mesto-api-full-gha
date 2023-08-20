@@ -5,12 +5,12 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+https://github.com/tzarbasil/react-mesto-api-full-gha/tree/main
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес https://github.com/tzarbasil/react-mesto-api-full-gha/tree/main
 
-Frontend https://...
+Frontend https://tzarbasil.nomoredomainsicu.ru
 
-Backend https://...
+Backend https://backend.https://tzarbasil.nomoredomainsicu.ru
