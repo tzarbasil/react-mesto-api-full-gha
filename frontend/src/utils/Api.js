@@ -90,7 +90,7 @@ export default class Api {
 }
 
 export const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64",
+  baseUrl: "https://backend.tzarbasil.nomoredomainsicu.ru",
   headers: {
     authorization: "7ee89985-112e-4652-b81d-a30402b6b6f7",
     "Content-Type": "application/json",
