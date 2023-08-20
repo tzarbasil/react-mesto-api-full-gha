@@ -8,7 +8,6 @@ const { errors } = require('celebrate');
 
 const app = express();
 app.use(express.json());
-
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
@@ -21,6 +20,10 @@ const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 app.use(requestLogger);
+
+const { cors } = require('./middlewares/cors');
+
+app.use(cors);
 
 app.post('/signin', login);
 app.post('/signup', createUser);
@@ -43,35 +46,6 @@ app.use((err, req, res, next) => {
 });
 
 // app.use(helmet());
-
-const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
-  'https://tzarbasil.nomoredomainsicu.ru',
-  'http://tzarbasil.nomoredomainsicu.ru',
-  'https://backend.tzarbasil.nomoredomainsicu.ru',
-  'http://backend.tzarbasil.nomoredomainsicu.ru',
-  'localhost:3000',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-
-  next();
-});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
