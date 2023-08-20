@@ -6,7 +6,7 @@ module.exports.cors = (req, res, next) => {
     'http://praktikum.tk',
     'https://tzarbasil.nomoredomainsicu.ru',
     'http://tzarbasil.nomoredomainsicu.ru',
-    'http://localhost:3000',
+    'http://localhost',
   ];
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];

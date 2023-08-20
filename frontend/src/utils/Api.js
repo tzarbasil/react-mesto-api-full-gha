@@ -1,3 +1,6 @@
+// export const BASE_URL = "http://localhost:3000"
+export const BASE_URL = "https://backend.tzarbasil.nomoredomainsicu.ru"
+
 export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -89,10 +92,12 @@ export default class Api {
 
 }
 
+const token = localStorage.getItem("jwt");
+
 export const api = new Api({
-  baseUrl: "https://backend.tzarbasil.nomoredomainsicu.ru",
+  baseUrl: BASE_URL,
   headers: {
-    authorization: "7ee89985-112e-4652-b81d-a30402b6b6f7",
     "Content-Type": "application/json",
-  },
+    'Authorization': `Bearer ${token}`
+  }
 });

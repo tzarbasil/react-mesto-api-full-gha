@@ -98,7 +98,7 @@ function App() {
   const tokenCheck = () => {
     const jwt = localStorage.getItem("jwt");
     isTockenValid(jwt).then((response) => {
-      setHeaderEmail(response.data.email);
+      setHeaderEmail(response.email);
       setLoggedIn(true);
     }).then(() => navigate("/"))
       .catch((err) => console.error(err));
@@ -109,7 +109,7 @@ function App() {
     const { password, email } = authData;
     register(password, email)
       .then((response) => {
-        if (response.data.email) {
+        if (response.email) {
           setRegistrated(true);
           navigate("/sign-in");
         }
