@@ -56,6 +56,7 @@ function App() {
       .setProfileInformation(user)
       .then((data) => {
         setCurrentUser(data);
+        closeAllPopups();
       })
       .then(() => closeAllPopups())
       .catch((error) => console.log(error));

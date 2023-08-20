@@ -93,15 +93,16 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about })
-    .then((user) => res.status(200).send(user))
+module.exports.updateUser = (Name, data, req, res, next) => {
+  Name.findByIdAndUpdate(req.user._id, data, { new: true, runValidators: true })
+    .then((user) => {
+      res.send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(
           new BadRequestError(
-            'Переданы некорректные данные',
+            'Переданы некорректные данные при обновлении профиля',
           ),
         );
       } else {
