@@ -24,7 +24,11 @@ app.use(requestLogger);
 const { cors } = require('./middlewares/cors');
 
 app.use(cors);
-
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.post('/signin', login);
 app.post('/signup', createUser);
 app.use(usersRouter);
