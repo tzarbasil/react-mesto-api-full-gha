@@ -28,16 +28,18 @@ app.use(requestLogger);
 
 const { cors } = require('./middlewares/cors');
 
+const NotFoundError = require('./errors/NotFoundError');
+
 app.use(cors);
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.post('/signin', celebrate.validateCreateAndLoginUser, login);
-app.post('/signup', celebrate.validateCreateAndLoginUser, createUser);
-app.use('/users', usersRouter);
-app.use('/cards', cardsRouter);
+app.post('/signin', celebrate.validateLoginUser, login);
+app.post('/signup', celebrate.validateCreateUser, createUser);
+app.use(usersRouter);
+app.use(cardsRouter);
 
 mongoose.connect(DB_URL);
 
@@ -55,6 +57,10 @@ app.use((err, req, res, next) => {
 });
 
 // app.use(helmet());
+
+app.use((req, res) => {
+  res.send(new NotFoundError());
+});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
