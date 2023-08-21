@@ -13,4 +13,4 @@ IP-адрес 158.160.79.104
 
 Frontend https://tzarbasil.nomoredomainsicu.ru
 
-Backend https://backend.https://tzarbasil.nomoredomainsicu.ru
+Backend https://backend.tzarbasil.nomoredomainsicu.ru
