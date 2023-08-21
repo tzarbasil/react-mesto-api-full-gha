@@ -18,6 +18,8 @@ const usersRouter = require('./routes/users');
 
 const cardsRouter = require('./routes/cards');
 
+const celebrate = require('./middlewares/celebrate');
+
 const { login, createUser } = require('./controllers/users');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -32,10 +34,10 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.post('/signin', login);
-app.post('/signup', createUser);
-app.use(usersRouter);
-app.use(cardsRouter);
+app.post('/signin', celebrate.validateCreateAndLoginUser, login);
+app.post('/signup', celebrate.validateCreateAndLoginUser, createUser);
+app.use('/users', usersRouter);
+app.use('/cards', cardsRouter);
 
 mongoose.connect(DB_URL);
 

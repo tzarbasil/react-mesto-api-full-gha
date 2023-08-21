@@ -11,7 +11,7 @@ const validateCreateCard = celebrate({
 
 const validateCardId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex(),
+    cardId: Joi.string().required().length(24).hex(),
   }),
 });
 
@@ -19,9 +19,9 @@ const validateCreateAndLoginUser = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(regexValidation),
+    // name: Joi.string().min(2).max(30),
+    // about: Joi.string().min(2).max(30),
+    // avatar: Joi.string().regex(regexValidation),
   }),
 });
 

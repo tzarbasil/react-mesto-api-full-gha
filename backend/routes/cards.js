@@ -12,10 +12,10 @@ const {
 
 router.use(auth);
 
-router.get('/cards', getCards);
-router.delete('/cards/:cardId', celebrate.validateCardId, deleteCard);
-router.post('/cards', celebrate.validateCreateCard, createCard);
-router.put('/cards/:cardId/likes', celebrate.validateCardId, likeCard);
-router.delete('/cards/:cardId/likes', celebrate.validateCardId, dislikeCard);
+router.get('/', getCards);
+router.delete('/:cardId', celebrate.validateCardId, deleteCard);
+router.post('/', celebrate.validateCreateCard, createCard);
+router.put('/:cardId/likes', celebrate.validateCardId, likeCard);
+router.delete('/:cardId/likes', celebrate.validateCardId, dislikeCard);
 
 module.exports = router;

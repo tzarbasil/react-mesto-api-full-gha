@@ -8,7 +8,7 @@
     "dev": "nodemon app.js",
     "lint": "npx eslint ./"
   },
-  "author": "",
+  "author": "Vasiliy Grishin",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.46.0",
