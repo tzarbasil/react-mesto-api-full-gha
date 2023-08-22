@@ -38,10 +38,14 @@ app.get('/crash-test', () => {
 });
 app.post('/signin', celebrate.validateLoginUser, login);
 app.post('/signup', celebrate.validateCreateUser, createUser);
-app.use(usersRouter);
-app.use(cardsRouter);
+app.use('/users/', usersRouter);
+app.use('/cards/', cardsRouter);
 
 mongoose.connect(DB_URL);
+
+app.use((req, res, next) => {
+  next(new NotFoundError('Запрос на несуществующий адрес'));
+});
 
 app.use(errorLogger);
 
@@ -58,9 +62,6 @@ app.use((err, req, res, next) => {
 
 // app.use(helmet());
 
-app.use((req, res) => {
-  res.send(new NotFoundError());
-});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
